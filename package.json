@@ -1,0 +1,31 @@
+{
+  "name": "vue2-source-code",
+  "version": "1.0.0",
+  "description": "手写 vue2 ",
+  "main": "index.js",
+  "scripts": {
+    "dev": "rollup -c -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sifou-dev/vue2-source-code.git"
+  },
+  "keywords": [
+    "手写",
+    "源码",
+    "vue2"
+  ],
+  "author": "sifou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sifou-dev/vue2-source-code/issues"
+  },
+  "homepage": "https://github.com/sifou-dev/vue2-source-code#readme",
+  "devDependencies": {
+    "@babel/core": "^7.23.6",
+    "@babel/preset-env": "^7.23.6",
+    "rollup": "^2.79.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-serve": "^1.1.1"
+  }
+}
