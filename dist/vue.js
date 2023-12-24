@@ -50,29 +50,6 @@
     return Constructor;
   }
 
-  function observer(data) {
-    if (_typeof(data) !== 'object' || data === null) {
-      return data;
-    }
-    new Observer(data);
-  }
-  function defineReactive(data, key, value) {
-    // 递归
-    observer(value);
-    Object.defineProperty(data, key, {
-      get: function get() {
-        console.log('获取');
-        return value;
-      },
-      set: function set(newVal) {
-        if (value === newVal) {
-          return;
-        }
-        value = newVal;
-        observer(newVal);
-      }
-    });
-  }
   var Observer = /*#__PURE__*/function () {
     function Observer(value) {
       _classCallCheck(this, Observer);
@@ -91,6 +68,29 @@
     }]);
     return Observer;
   }();
+  function observe(data) {
+    if (_typeof(data) !== 'object' || data === null) {
+      return data;
+    }
+    new Observer(data);
+  }
+  function defineReactive(data, key, value) {
+    // 递归
+    observe(value);
+    Object.defineProperty(data, key, {
+      get: function get() {
+        console.log('获取');
+        return value;
+      },
+      set: function set(newVal) {
+        if (value === newVal) {
+          return;
+        }
+        value = newVal;
+        observe(newVal);
+      }
+    });
+  }
 
   function initState(vm) {
     var ops = vm.$options;
@@ -111,14 +111,14 @@
       data = vm._data = typeof data === 'function' ? data.call(vm) : data;
 
       // 开始正式的数据劫持
-      observer(data);
+      observe(data);
     }
   }
 
   function initMixin(Vue) {
     Vue.prototype._init = function (options) {
       var vm = this;
-      vm.$options = options;
+      vm.$options = options || {};
       // 初始化状态
       initState(vm);
     };

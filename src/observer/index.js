@@ -1,30 +1,3 @@
-export function observer(data) {
-  if (typeof data !== 'object' || data === null) {
-    return data
-  }
-
-  new Observer(data)
-}
-
-function defineReactive(data, key, value) {
-  // 递归
-  observer(value)
-
-  Object.defineProperty(data, key, {
-    get() {
-      console.log('获取')
-      return value
-    },
-    set(newVal) {
-      if (value === newVal) {
-        return
-      }
-      value = newVal
-      observer(newVal)
-    }
-  })
-}
-
 class Observer {
   constructor(value) {
     this.walk(value)
@@ -40,4 +13,31 @@ class Observer {
       defineReactive(data, key, value)
     }
   }
+}
+
+export function observe(data) {
+  if (typeof data !== 'object' || data === null) {
+    return data
+  }
+
+  new Observer(data)
+}
+
+function defineReactive(data, key, value) {
+  // 递归
+  observe(value)
+
+  Object.defineProperty(data, key, {
+    get() {
+      console.log('获取')
+      return value
+    },
+    set(newVal) {
+      if (value === newVal) {
+        return
+      }
+      value = newVal
+      observe(newVal)
+    }
+  })
 }

@@ -1,4 +1,4 @@
-import { observer } from './observe/index'
+import { observe } from './observer/index'
 
 export function initState(vm) {
   const ops = vm.$options
@@ -34,7 +34,7 @@ export function initState(vm) {
     data = vm._data = typeof data === 'function' ? data.call(vm) : data
 
     // 开始正式的数据劫持
-    observer(data)
+    observe(data)
 
   }
   function initComputed() { }
